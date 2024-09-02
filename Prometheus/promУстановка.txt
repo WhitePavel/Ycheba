@@ -29,3 +29,8 @@ ExecStart=/usr/bin/prometheus \
 --storage.tsdb.path /etc/prometheus/data
 [Install]
 WantedBy=multi-user.target
+10.systemctl daemon-reload
+11.systemctl status prometheus
+12.systemctl start prometheus 
+13.systemctl status prometheus
+14.systemctl enable prometheus - вкючает сервер при перезапуске компа
