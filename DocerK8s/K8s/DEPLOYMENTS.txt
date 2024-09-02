@@ -1,0 +1,29 @@
+kubectl get deploy - проверка deployments в нашем кластере
+-----------------------------------
+kubectl create deployment **** %%%%%% - создание деплоемента
+***** - название деплоймента
+%%%%% - имэдж деплоймента
+kubectl delete deployment ***** - удаление деплоймента по имени
+kubectl delete -f ;;;;; - удаление по yaml файлу
+;;;;;;; - название yaml файла
+kubectl delete --all - удалить всё!!!!
+------------------------------------
+kubectl scale deployment ****** --replicas 4 - создаёт 4 пода в нашем кластере кубернетис
+kubectl autoscale deployment ****** --min=4 --max=6 --cpu-percent=80
+***** нзвание deployment
+------------------------------------
+kubectl get rs - проверка реплика сет
+реплика сет показывает нам сколько в нашем кластере тепепь будет минимальное кол-во указанных подов
+kubectl get hpa - показывает количестов подов запущенных в autoscaling
+------------------------------------
+kubectl rollout history deployment/********** - показывает историю наших деплойментов и его статус
+kubectl rollout status deployment/********** - показывает статус нашего деплоймента
+********* - название deploymenta
+---------------------------
+kubectl set image deployment/******** k8sphp=lains02/k8sphp:latest - меняет наш имэдж в деплое
+все наши поды будут идти с данным имэджом
+kubectl rollout undo deployment/******** - возвращает нас на предыдущую версию
+kubectl rollout undo deployment/******** --to-revision=&
+****** - название деплоймента 
+& - версия 
+kubectl rollout restart deployment/******** - апдейт нашего деплоймента на новую версию имэджа с версией latest

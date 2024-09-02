@@ -1,0 +1,84 @@
+-------------------МАнифест файл для пода--------------------
+apiVersion : v1
+kind: Pod
+metadata:
+  name: meinKampf
+spec:
+  containers: 
+    - name: container-apache
+      image: httpd:latest
+
+
+kubectl apply -f **** - поднятие yaml файла в кубере
+***** - название файла
+------------------------Манифест файл для деплоя----------------
+apiVersion : apps/v1
+kind: Deployment      # что создаём
+metadata:
+  name: my-web-deployment    # как будет называться наш деплой
+  labels:
+    app : my-k8s-application  # используются для организации и выбора подмножеств
+spec:     # под какими подами будет рабоать деплоймент
+  selector:
+    matchLabels:
+      project: kgb  # он будет рабоать под этими лейьлами
+  template: 
+    metadata:       # тут дальше идёт полное описание пода
+      labels:
+        project: kgb    # лейбл пода 
+    spec:     # спецификафикация пода
+      containers:
+        - name : kgb-web
+          image: lains02/k8sphp:tagname
+          ports:
+            - containerPort: 80
+
+
+
+kubectl apply -f *******
+
+-----------------Манифест файл для аутоскелинга--------------
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: my-web-deployment-autoscaling
+  labels:
+    app : my-k8s-application
+    env : prod
+    owner: PavelWhite
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      project: mossad
+  template:
+    metadata:
+      labels:
+        project: mossad
+    spec:
+      containers:
+        - name: mossad-web
+          image: lains02/k8sphp:latest
+          ports: 
+            - containerPort: 80
+
+...
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-autoscaling
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v2betav1
+    kind: Deployment
+    name: my-web-deployment-autoscaling
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type:Utilization
+          averageUtilization: 90
+

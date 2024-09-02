@@ -1,0 +1,15 @@
+В кубернетис существует 4 вида сервисов (Service Types)
+1.(по умолчанию) ClusterIP - Ip только внутри K8s Cluster
+2. NodePort - определённый Порт на ВСЕХ K8s Worker Nodes
+3.ExternalName - Dns CNAME Record
+4.LoadBalancer - только для клауд кластеров
+---------------------------------------------------------------------------
+kubectl expose deployment ******** --type=ClusterIP --port 80 - подключение сервиса ClusterIP на порте 80 к деплойменту
+**** - название деплоймента
+ClusterIP - сервис по умолчанию,предоставляет доступ по айпи внутри сервера
+kubectl expose deployment ******** --type=NodePort --port 80 - подключение сервиса NodePort
+NodePort -открывает отдельный порт на всех наших нодах
+kubectl expose deployment ******** --type=LoadBalancer --port 80 - подключение сервиса LoadBalancer
+Load balancer создаёт нам отдельный айпи адресс по которому мы можем войти на под
+---------------------------------------------------------------------------
+kubectl get services - показывае текущие сервисы в нашем кластере

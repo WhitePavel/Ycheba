@@ -1,0 +1,31 @@
+Устанавливаем нужный образ с prometheus.io
+после этого разархивируем его командой tar xvfz **** 
+*** - прометиус файл
+далее запускаем наш прометиус командной sudo ./prometheus
+всё, теперь на локальном хосте наш прометеус стоит на порту 9090
+
+--------------------------------------------------------------------------
+Професианальное раскидывние прометиуса происходит так
+1. sudo su входим под суперпользователя root
+2. mv prometheus /usr/bin - перекидываем прометиус файл в директорию /usr/bin так мы сможем запускать его откуда угодно
+3. mkdir /etc/prometheus
+4. mkdir /etc/prometheus/data
+5. mv prometheus.yml /etc/prometheus
+6. useradd -rs /bin/false prometheus
+7. chown prometheus:prometheus /usr/bin/prometheus
+8. chown -R prometheus:prometheus /etc/prometheus
+9. nano /etc/systemd/system/prometheus.service
+[Unit]
+Description=Prometheus Server
+After=network.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+Restart=on-failure
+ExecStart=/usr/bin/prometheus \
+--config.file /etc/prometheus/prometheus.yml \
+--storage.tsdb.path /etc/prometheus/data
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,39 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: my-web-deployment
+  labels:
+    app: my-k8s-deployment       # депорймент будет конектить поды у которых есть project kgb labels
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      project: kgb
+  template:
+    metadata:
+      labels:
+        project: kgb  # сервис конектиться к этому лэйблуч
+    spec:
+      containers:
+        - name : kgb-web
+          image: lains02/k8sphp:latest
+          ports:
+            - containerPort : 80
+
+---      # добавление сервиса
+apiVersion: v1
+kind: Service
+metadata: 
+  name: my-single-pod-services
+  labels:
+    env: prod
+    owner: Pavel
+spec:
+  selector:
+    project: kgb # selecting pod with those labels
+  ports:
+    - name: app-listener
+      protocol : TCP
+      port : 80 # порт от loadbalancer
+      targetPort: 80 # порт от под
+  type: LoadBalancer
