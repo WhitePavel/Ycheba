@@ -1,0 +1,8 @@
+CI - Continuous Integration
+Это DevOps модель в которой разработчики делают Commit кода в Repository и автоматически запускаются Build или Компиляция этого кода,после этого запускаются автоматические тесты кода: Unit Test,Integration Test,Functionality Test
+
+CD - Continuous Delivery and Deployment
+CI/CD - это комбинация непрерываной интеграции и непрерывного развёртывания программного обеспечения в процессе разработки
+Разработка,тестировние,развёртывание приложений
+
+ИНсталяция jenkins под linux ubuntu

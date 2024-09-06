@@ -1,0 +1,16 @@
+apiVersion: vl 
+kind: Service
+metadata:
+  name: my-single-pod1-service
+  labels:
+    env: prod 
+    owner: DenisAstahov
+spec:
+  selector:
+    project: kgb1
+  ports:
+    - name      :app1-listener
+      protocol  :TCP
+      port      :80
+      targetPort:80
+  type: LoadBalancer

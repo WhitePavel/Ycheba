@@ -1,0 +1,39 @@
+1. cd /etc/prometheus или там где у вас прометеус .yml
+2. nano prometheus.yml
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+  - job_name: "ubuntu-server"
+    static_configs:
+      - targets:
+          - 91.239.148.225:9100    # ДОБАВИЛИ НОВЫЙ АЙПИШНИК 
+
+3.sudo su
+4. wget # НА САЙТЕ ПРОМЕТИУСА КАЧАЕМ НОД ЭКСПОРТЕР
+5 tar xvfz ***** 
+**** - название архива
+6.cd node_exproter-1.7
+7. mv node_exporter /usr/bin
+8. useradd -rs /bin/false node_exporter
+9.chown node_exporter:node_exporter /usr/bin/node_exporter
+10. sudo nano /etc/systemd/system/node_exporter.service
+[Uniti]
+Description=Prometheus Node Exporter
+After=network.target
+
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+Restart=on-failure
+ExecStart=/usr/bin/node_exporter
+[Install]
+WantedBy=multi-user.target|
+
+11.systemctl deamon-reload
+12.systemctl start node_exporter
+13.systemctl enable node_exporter
+14.systemctl status node_exporter

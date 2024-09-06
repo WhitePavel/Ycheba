@@ -1,0 +1,21 @@
+apiVersion : apps/vl
+kind: Deployment 
+metadata:
+  name: my-web2-deployment 
+  labels:
+    app: my-k8s2-deployment 
+spec:
+  replicas: 3
+  selector:
+    matchLabels: 
+      project: kgb2
+  template:
+    metadata: 
+      labels:
+        project: kgb2
+    spec:
+      containers:
+        - name: kgb2-web 
+          image:adv4000/k8sphp:version
+          ports:
+            - containerPort: 80
