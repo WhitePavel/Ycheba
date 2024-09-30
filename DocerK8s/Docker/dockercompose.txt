@@ -12,6 +12,8 @@ services:
   ports:
    -'80:80'
   restart: unless-stopped
+  volumes:
+    - db-data:/etc/data
   depends_on:  #Параметр указывающий что этот контейнер запуститься только после запуска остальных контейнеров
    - app-db
    - app-redis
@@ -47,3 +49,11 @@ networks:
 
 docker compose logs -f - посмотреть логи комапоза
 docker compose stop - для того чтобы убить компос файл
+# запускаем все контейнеры, видим stdout всех контейнеров, а для остановки используем Ctrl+C
+docker-compose up
+# запуск в режиме демона
+docker-compose up -d
+# для остановки используем 
+docker-compose stop
+# для остановки с удалением контейнеров 
+docker-compose down

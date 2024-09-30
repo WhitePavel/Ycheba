@@ -1,0 +1,52 @@
+playbook.yml
+
+---
+- name: Test Connection my serves
+  hosts: all
+  become: yes
+
+  tasks:
+
+  - name: ping my serves
+    ping:
+
+playbook №2 
+
+---
+- name: Install Default Apache Web Server
+  hosts: all
+  become: yse
+
+
+ tasks: 
+ - name: Install Apache WebServer
+   yam:  name=httpd state=latest
+
+ - name: Start Apache and Enable it on every boot
+   service: name=httpd state=started enabled=yes
+
+playbook №3
+
+---
+- name: Install Apache and Upload my Web Page
+  hosts: all
+  become: yes
+
+  vars:
+    source_file: ./MyWebSite/index.html
+    destin_file: /var/www/html
+
+  tasks:
+  - name: Install Apache Web Server
+    yam: name httpd state=latest
+
+  - name: copy MyHomePage to Servers
+    copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+      
+
+  - name: Start WebServer and make it enable on boot 
+    service: name=httpd state=started enabled=yes
+
+  handlers:
+  - name: Restart Apache
+    service: name=httpd start=restarted 

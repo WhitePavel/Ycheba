@@ -1,0 +1,35 @@
+$ ssh-keygen -t ***(по умолч.rsa) 
+-t позволяет ввести имя ключа
+
+sudo apt-get update
+sudo apt get upgrade
+sudo apt install openssh-server - скачивание SSH сервера
+sudo service ssh status -проверяем ssh подключение
+
+ssh root@ip_address - так можно войти с помощью пароля 
+
+cd ~ -
+mkdir .ssh 
+cd .ssh
+touch authorized_keys
+chmod 0600 authorized_keys 
+echo "публичный ключ" >> authorized_keys
+ssh -i .\приватный ключ root@ip_address
+mv приватный ключ id_rsa -так ssh поймёт что нужно брать для нашего приватного ключа
+
+---------------------------SSH-CONFIG---------------
+touch ~/.ssh/config # Создаём файл конфиг
+cat <<EOF> ~/.ssh/config
+
+Host Название сервера
+     HostName 'IpAddress or DNS'
+     User root
+     Port 22
+
+Host *.eu
+     User Pavel
+     IdentityFile ~/.ssh/"fiel"
+
+Host *
+     StrictHostKeyChecking no
+     UserKnownHostsFile /dev/null

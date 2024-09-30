@@ -1,12 +1,10 @@
-FROM amazonlinux
+FROM php:8.1-fpm
 
-RUN mkdir /run/php-fpm
-RUN yum -y update
-RUN yum -y install httpd
-RUN yum -y install php
+RUN apt-get update
+RUN apt-get install -y curl git
 
-COPY ./index.php /var/www/html/index.php
+RUN docker-php-ext-install pdo pdo_mysql
 
-CMD /usr/sbin/php-fpm && /usr/sbin/httpd -D FOREGROUND
+WORKDIR /var/www/public_html
 
-EXPOSE 80
+ENTRYPOINT [ "php-fpm" ]

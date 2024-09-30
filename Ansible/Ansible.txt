@@ -1,0 +1,16 @@
+[staging_servers]
+linux1  ansible_host=91.239.148.225 ansible_user=root ansible_ssh_private_key_file=/Users/pavelprosvetov/.ssh/id_ed25519
+
+-прописали в файле hosts.txt конфигурацию 
+
+название к кому подключаемся        имя пользователя    ссх ключ или логин и пароль
+
+ansible -i hosts.txt all -m ping - запуска ансиблс из файла хост на все группы указанные внутри с иодулем пинг
+
+в проекте на компе можно так же прописать конфиг файл
+ansible.cfg
+
+[defaults]
+host_key_checking = false
+inventory         =./hosts.txt
+
