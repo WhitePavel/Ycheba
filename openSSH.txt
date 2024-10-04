@@ -33,3 +33,14 @@ Host *.eu
 Host *
      StrictHostKeyChecking no
      UserKnownHostsFile /dev/null
+
+-----------------------utilitySCP----------------
+
+scp /home/test.txt root@123.123.123.123:/directory
+
+scp ******* root@123.123.123.123:/&&&&&&&
+
+****** -file or directory for copy
+&&&&&&&&& - file or directory
+
+scp **** VPN:&&&&
